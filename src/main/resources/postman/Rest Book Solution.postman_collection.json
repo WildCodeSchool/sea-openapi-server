@@ -1,0 +1,129 @@
+{
+  "info": {
+    "_postman_id": "1033e2bb-8043-45a4-935f-0a1b6199525d",
+    "name": "Rest Book Solution",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST Books (method:create)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\":\"Way of the Dragon\",\n    \"author\":\"Chuck Norris\",\n    \"description\":\"The Way of the Dragon is a 1972 Hong Kong martial arts action-comedy film written, co-produced and directed by Bruce Lee, who also stars in the lead role. This is Lee's only complete directorial film and the last one released during his lifetime. The film co-stars Nora Miao, Robert Wall, and Wei Ping-ou, with Chuck Norris playing his debut screen role. The Way of the Dragon was released in Hong Kong on 30 December 1972, and in the United States in August 1974.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/books",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Books (method:index)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/books",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Books (method:show)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/books/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "books",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Books (method:search)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\":\"Missing\",\n    \"author\":\"Chuck\",\n    \"description\":\"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/books/search",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "books",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Books (method:update)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": null
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Books (method:delete)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/books/2",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "books",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
