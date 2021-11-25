@@ -1,6 +1,6 @@
 ### OpenAPI Server
 
-This Maven project hosts the Spring Boot OpenAPI Java REST service for the [REST client stubs](https://raw.githubusercontent.com/WildCodeSchool/sea_openapi-client/).
+This Maven project hosts the Spring Boot OpenAPI Java REST service for the [REST client stubs](https://raw.githubusercontent.com/WildCodeSchool/sea-openapi-client/).
 
 ### Prerequisites
 
