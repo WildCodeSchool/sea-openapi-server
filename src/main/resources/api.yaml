@@ -1,41 +1,201 @@
-openapi: "3.1.0"
+openapi: 3.0.0
 info:
-  title: Simple OpenAPI example
-  version: 0.0.1
-  description: A simple example for OpenAPI
+  title: Api Documentation
+  description: Api Documentation
+  termsOfService: urn:tos
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: '1.0'
 servers:
   - url: http://localhost:8080
-    description: Sample server for this API
+    description: Inferred Url
+tags:
+  - name: book-controller
+    description: Book Controller
 paths:
-  /persons/{personId}:
+  /books:
     get:
-      operationId: personGet
-      summary: Fetch one person by id
-      description: Get the person data
-      parameters:
-        - name: personId
-          in: path
-          required: true
-          schema:
-            type: number
-            example: 4
+      tags:
+        - book-controller
+      summary: index
+      operationId: indexUsingGET
       responses:
         '200':
-          description: Person
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
-                type: object
-                properties:
-                  firstname:
-                    type: string
-                    description: Name of person
-                    example: "Paul"
-                  lastname:
-                    type: string
-                    description: Last name of person
-                    example: "Paulson"
-                  age:
-                    type: number
-                    description: The current age of the person
-                    example: 42
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - book-controller
+      summary: create
+      operationId: createUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Book'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /books/search:
+    post:
+      tags:
+        - book-controller
+      summary: search
+      operationId: searchUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /books/{id}:
+    get:
+      tags:
+        - book-controller
+      summary: show
+      operationId: showUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Book'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - book-controller
+      summary: update
+      operationId: updateUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Book'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - book-controller
+      summary: delete
+      operationId: deleteUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+components:
+  schemas:
+    Book:
+      title: Book
+      type: object
+      properties:
+        author:
+          type: string
+          example: "test"
+        description:
+          type: string
+          example: "test"
+        id:
+          type: integer
+          format: int32
+          example: 1
+        title:
+          type: string
+          example: "test"

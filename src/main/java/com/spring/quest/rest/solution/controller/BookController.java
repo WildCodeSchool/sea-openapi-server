@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class BookController {
 
-    @Autowired
-    BookRepository bookRepository;
+    private final BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     @GetMapping("/books")
     public List<Book> index() {
@@ -20,18 +22,14 @@ public class BookController {
     }
 
     @GetMapping("/books/{id}")
-    public Book show(@PathVariable int id) {
+    public Book show(@PathVariable("id") int id) {
         return bookRepository.findById(id).get();
     }
 
-    @PostMapping("/books/search")
-    public List<Book> search(@RequestBody Map<String, String> mapSearchTerms) {
-        String searchTermTitle = mapSearchTerms.get("title");
-        String searchTermAuthor = mapSearchTerms.get("author");
-        String searchTermDescr = mapSearchTerms.get("description");
-        return bookRepository.findByTitleContainingAndAuthorContainingAndDescriptionContaining(searchTermTitle, searchTermAuthor, searchTermDescr);
+    @GetMapping("/books/search")
+    public List<Book> search(@RequestParam("searchTerm") String searchTerm) {
+        return bookRepository.findBooksByTitleContainingOrAuthorContainingOrDescriptionContaining(searchTerm, searchTerm, searchTerm);
     }
-
 
     @PostMapping("/books")
     public Book create(@RequestBody Book book) {
@@ -39,7 +37,7 @@ public class BookController {
     }
 
     @PutMapping("/books/{id}")
-    public Book update(@PathVariable int id, @RequestBody Book book) {
+    public Book update(@PathVariable("id") int id, @RequestBody Book book) {
         Book bookToUodate = bookRepository.findById(id).get();
         bookToUodate.setTitle(book.getTitle());
         bookToUodate.setAuthor(book.getAuthor());
@@ -49,7 +47,7 @@ public class BookController {
     }
 
     @DeleteMapping("books/{id}")
-    public boolean delete(@PathVariable int id){
+    public boolean delete(@PathVariable("id") int id){
         bookRepository.deleteById(id);
         return true;
     }
